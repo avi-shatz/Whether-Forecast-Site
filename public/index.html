@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+
+  <!-- Bootstrap CSS -->
+  <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet">
+
+  <link href="css/weather.css" rel="stylesheet">
+  <script src="scripts/weather.js"></script>
+
+  <title>weather info</title>
+</head>
+<body>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 bg-light m-5 p-5 text-center">
+      <h1>Weather Forecast</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-md-6" id="menu-section">
+
+      <div class="row bg-light px-3 py-3 m-5" id="selection">
+        <div class="col col-12">
+          <select class="custom-select" id="select_place">
+            <option selected value="None">-- Select --</option>
+          </select>
+          <div class="d-none" id="selection_buttons">
+            <button class="btn btn-danger m-3" id="remove_btn">Remove</button>
+            <button class="btn btn-success m-3" id="display_btn">Display Forecast</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row bg-light px-3 py-3 m-5" id="insert_section">
+        <div class="col text-left">
+          <form>
+
+            <div class="form-row">
+              <div class="col-12" id="unique_alert">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-12 col-md-5">
+                <label for="place">Place</label>
+                <input class="form-control" id="place" required type="text">
+              </div>
+              <div class="col-12 col-md-3">
+                <label for="longitude">Longitude</label>
+                <input class="form-control" id="longitude" max="180"
+                       min="-180" required step="0.000000001" type="number">
+              </div>
+              <div class="col-12 col-md-3">
+                <label for="latitude">Latitude</label>
+                <input class="form-control" id="latitude" max="90"
+                       min="-90" required step="0.000000001" type="number">
+              </div>
+              <div class="col-12 py-2">
+                <button class="btn btn-primary" type="submit">Add</button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-12 col-md-6" id="forecast_section">
+      <div class="text-center p-5 d-none" id="loading_img">
+        <h1>Loading...</h1>
+      </div>
+
+
+      <div class="text-center p-3" id="img_div">
+
+      </div>
+
+      <div class="text-center p-5 d-none" id="loading_json">
+        <h1>Loading...</h1>
+      </div>
+
+      <div class="p-3" id="json_div">
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script crossorigin="anonymous"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
