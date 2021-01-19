@@ -14,7 +14,6 @@ app.set('views', 'views');
 const weatherRoutes = require('./routes/weather');
 const registerRoutes = require('./routes/register');
 const loginRoutes = require('./routes/login');
-const passwordRoutes = require('./routes/password');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -31,7 +30,6 @@ app.use(session({
 app.use('/', weatherRoutes);
 app.use('/register', registerRoutes);
 app.use('/login', loginRoutes);
-app.use('/password', passwordRoutes);
 
 app.use(errorController.get404);
 
