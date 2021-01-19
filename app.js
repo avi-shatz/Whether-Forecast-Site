@@ -3,6 +3,7 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 const errorController = require('./controllers/error');
 
@@ -17,6 +18,8 @@ const loginRoutes = require('./routes/login');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(cookieParser());
 
 // enable sessions
 app.use(session({

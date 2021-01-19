@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models');
 const queryUser = require('../util/queryUser');
+const Cookies = require('cookies');
 
 router.get('/', (req, res) => {
 
@@ -11,6 +12,17 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+  // save time in cookies
+  const cookies = new Cookies(req, res, { keys: ['keyboard cat'] });
+  const registerSubmitTime = cookies.get('registerSubmitTime', { signed: true });
+
+  if (!registerSubmitTime || Date.now() - new Date(registerSubmitTime) > 60 * 1000){
+    req.session.timeOut = true;
+    req.session.save();
+    res.redirect('/register');
+    return;
+  }
+
 
   try {
     const userInfo = req.session.info;
@@ -20,6 +32,7 @@ router.post('/', async (req, res) => {
 
     if (emailExist) {
       req.session.emailExist = true;
+      req.session.save();
       res.redirect('/register');
       return;
     }
@@ -29,7 +42,7 @@ router.post('/', async (req, res) => {
 
   } catch (err) {
     console.log('\n***** There was an error: *****\n', err.message, '\n**********\n');
-    res.redirect('/register')
+    res.redirect('/register');
   }
 
   return;

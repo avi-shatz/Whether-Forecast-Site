@@ -14,7 +14,13 @@
 
         <% if(emailExist === true){ %>
             <div class="alert alert-danger">
-                <strong>Error: </strong> Account with this email already exists.
+                Account with this email already exists. Please try a different email
+            </div>
+        <% } %>
+
+        <% if(timeOut === true){ %>
+            <div class="alert alert-danger">
+                Please enter the password within one minute of registration
             </div>
         <% } %>
 

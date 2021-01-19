@@ -11,6 +11,8 @@
   "author": "Maximilian",
   "license": "ISC",
   "devDependencies": {
+    "cookie-parser": "^1.4.5",
+    "cookies": "^0.8.0",
     "express-session": "^1.17.1",
     "nodemon": "^2.0.1"
   },
