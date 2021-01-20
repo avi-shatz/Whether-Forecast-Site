@@ -14,3 +14,15 @@ module.exports.emailExist = async (table, email) => {
   return false;
 }
 
+module.exports.validateAccount = async (table, email, password) => {
+  const found = await table.findOne(
+    {
+      where: {
+        email: email.toLowerCase(),
+        password: password
+      }
+    });
+
+  return found;
+}
+

@@ -1,0 +1,49 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+</head>
+
+<body>
+
+<div class="text-center">
+
+    <form class="form-signin" action="/login" method="POST">
+
+        <img class="mb-4" src="/images/big_logo.png" alt="" width="100"
+             height="100">
+
+        <% if(loginError === true){ %>
+            <div class="alert alert-danger">
+                The email or password you entered is incorrect. Please try again.
+            </div>
+        <% } %>
+
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+        <div class="form-group">
+            <label for="email_input" class="sr-only">Email address</label>
+            <input class="form-control first_input" type="email"
+                   pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$"
+                   name="email" placeholder="Enter email" required autofocus>
+
+            <label for="password" class="sr-only">Password</label>
+            <input class="form-control last_input" type="password" minlength="8"
+                   name="password" placeholder="Password" required>
+        </div>
+
+        <button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
+
+
+    </form>
+    <div class="my-4">
+        <p>
+        Don't have an account? &nbsp;
+        <a href="/register" class="">Sign up</a>
+        </p>
+    </div>
+    <p class="mt-5 mb-3 text-muted">&copy; Avish & Nati 2020</p>
+</div>
+
+
+
+
+<%- include('includes/end.ejs') %>

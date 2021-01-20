@@ -4,6 +4,7 @@ const db = require('../models');
 const queryUser = require('../util/queryUser');
 const Cookies = require('cookies');
 
+// /register/password => GET
 router.get('/', (req, res) => {
 
   res.render('password', {
@@ -11,6 +12,7 @@ router.get('/', (req, res) => {
   });
 });
 
+// /register/password => POST
 router.post('/', async (req, res) => {
   // save time in cookies
   const cookies = new Cookies(req, res, { keys: ['keyboard cat'] });

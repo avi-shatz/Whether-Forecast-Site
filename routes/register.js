@@ -7,6 +7,7 @@ const Cookies = require('cookies');
 
 router.use('/password', passwordRoutes);
 
+// /register => GET
 router.get('/', (req, res) => {
 
   res.render('register', {
@@ -20,6 +21,7 @@ router.get('/', (req, res) => {
   req.session.save();
 });
 
+// /register => POST
 router.post('/', async (req, res) => {
 
   // save time in cookies
