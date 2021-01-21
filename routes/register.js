@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../models');
-const queryUser = require('../util/queryUser');
+const queryUser = require('../util/dbQueries');
 const passwordRoutes = require('../routes/password');
 const Cookies = require('cookies');
 
@@ -30,7 +29,7 @@ router.post('/', async (req, res) => {
     new Date().toISOString(), { signed: true});
 
   try {
-    const emailExist = await queryUser.emailExist(db.User, req.body.email);
+    const emailExist = await queryUser.emailExist(req.body.email);
 
     if (emailExist) {
       req.session.emailExist = true;

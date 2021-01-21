@@ -1,10 +1,94 @@
 <%- include('includes/head.ejs') %>
-<link rel="stylesheet" href="/css/forms.css">
+
+<link href="/css/weather.css" rel="stylesheet">
+<script src="/scripts/weather.js"></script>
+
 </head>
 
 <body>
-<h1>hello</h1>
-<p>Hi <%= userData.firstName %>!
-</p>
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-12 bg-light m-5 p-5 ">
+            <p> Hi <%= userData.firstName %> <%= userData.lastName %>! </p>
+
+            <h1 class="text-center">Weather Forecast</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-6" id="menu-section">
+
+            <div class="row bg-light px-3 py-3 m-5" id="selection">
+                <div class="col col-12">
+                    <select class="custom-select" id="select_place">
+                        <option selected value="None">-- Select --</option>
+                    </select>
+                    <div class="d-none" id="selection_buttons">
+                        <button class="btn btn-danger m-3" id="remove_btn">Remove</button>
+                        <button class="btn btn-success m-3" id="display_btn">Display Forecast</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row bg-light px-3 py-3 m-5" id="insert_section">
+                <div class="col text-left">
+                    <form>
+
+                        <div class="form-row">
+                            <div class="col-12" id="unique_alert">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-12 col-md-5">
+                                <label for="place">Place</label>
+                                <input class="form-control" id="place" required type="text">
+                            </div>
+                            <div class="col-12 col-md-3">
+                                <label for="longitude">Longitude</label>
+                                <input class="form-control" id="longitude" max="180"
+                                       min="-180" required step="0.000000001" type="number">
+                            </div>
+                            <div class="col-12 col-md-3">
+                                <label for="latitude">Latitude</label>
+                                <input class="form-control" id="latitude" max="90"
+                                       min="-90" required step="0.000000001" type="number">
+                            </div>
+                            <div class="col-12 py-2">
+                                <button class="btn btn-primary" type="submit">Add</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-12 col-md-6" id="forecast_section">
+            <div class="text-center p-5 d-none" id="loading_img">
+                <h1>Loading...</h1>
+            </div>
+
+
+            <div class="text-center p-3" id="img_div">
+
+            </div>
+
+            <div class="text-center p-5 d-none" id="loading_json">
+                <h1>Loading...</h1>
+            </div>
+
+            <div class="p-3" id="json_div">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
 
 <%- include('includes/end.ejs') %>

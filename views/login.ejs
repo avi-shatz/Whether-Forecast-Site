@@ -11,6 +11,12 @@
         <img class="mb-4" src="/images/big_logo.png" alt="" width="100"
              height="100">
 
+        <% if(justRegistered === true){ %>
+            <div class="alert alert-success">
+                you are registered!
+            </div>
+        <% } %>
+
         <% if(loginError === true){ %>
             <div class="alert alert-danger">
                 The email or password you entered is incorrect. Please try again.
@@ -36,14 +42,12 @@
     </form>
     <div class="my-4">
         <p>
-        Don't have an account? &nbsp;
-        <a href="/register" class="">Sign up</a>
+            Don't have an account? &nbsp;
+            <a href="/register" class="">Sign up</a>
         </p>
     </div>
     <p class="mt-5 mb-3 text-muted">&copy; Avish & Nati 2020</p>
 </div>
-
-
 
 
 <%- include('includes/end.ejs') %>

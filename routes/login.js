@@ -1,24 +1,25 @@
 const path = require('path');
 const express = require('express');
 const router = express.Router();
-const queryUser = require('../util/queryUser');
-const db = require('../models');
+const queryUser = require('../util/dbQueries');
 
 // /login => GET
 router.get('/', (req, res) => {
 
   res.render('login', {
     pageTitle: 'login',
-    loginError: req.session.loginError
+    loginError: req.session.loginError,
+    justRegistered: req.session.justRegistered
   });
 
   req.session.loginError = false;
+  req.session.justRegistered = false;
   req.session.save();
 });
 
 // /login => POST
 router.post('/', async (req, res) => {
-  const validAccount = await queryUser.validateAccount(db.User, req.body.email, req.body.password);
+  const validAccount = await queryUser.validateAccount(req.body.email, req.body.password);
 
   if (validAccount) {
     req.session.userData = validAccount;

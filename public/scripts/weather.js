@@ -18,7 +18,7 @@
     constructor() {
       // a Map database to contain all the places.
       this._map = new Map();
-
+      this.fillMapWithPlacesFromDb();
       // the select element from the DOM.
       this._select = document.getElementById("select_place");
     }
@@ -31,8 +31,32 @@
       return this._map;
     }
 
-    // add a new place to the list of places.
-    addPlace(place) {
+    fillMapWithPlacesFromDb() {
+
+      const jsonUrl = '/api/get-places';
+
+      fetch(jsonUrl)
+        .then(response => {
+          if (response.status !== 200) {
+            throw new Error('Status Code: ' + response.status);
+          }
+          return response.json();
+        })
+        .then(json => {
+          for (const p of json) {
+            const place = new Place(p.name, p.lon, p.lat);
+            this.addPlaceToDom(place);
+          }
+        })
+        .catch(e => {
+          const errMsg = 'Looks like there was a problem. ' + e.message;
+          console.log(errMsg);
+        })
+        .finally(() => {
+        });
+    }
+
+    addPlaceToDom(place) {
       // add to map
       this.map.set(place.name, place);
 
@@ -40,6 +64,33 @@
       const option = document.createElement("option");
       option.innerHTML = `${place.name}`;
       this.select.appendChild(option);
+    }
+
+    addPlaceToDb(place) {
+      const jsonUrl = `/api/add-place?name=${place.name}` +
+        `&lon=${place.longitude}&lat=${place.latitude}`;
+
+      fetch(jsonUrl)
+        .then(response => {
+          if (response.status !== 200) {
+            throw new Error('Status Code: ' + response.status);
+          }
+          return response.json();
+        })
+        .then(json => {
+        })
+        .catch(e => {
+          const errMsg = 'Looks like there was a problem. ' + e.message;
+          console.log(errMsg);
+        })
+        .finally(() => {
+        });
+    }
+
+    // add a new place to the list of places.
+    addPlace(place) {
+      this.addPlaceToDom(place);
+      this.addPlaceToDb(place);
     }
 
     // remove a place from the list of places.

@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../models');
-const queryUser = require('../util/queryUser');
+const queryUser = require('../util/dbQueries');
 const Cookies = require('cookies');
 
 // /register/password => GET
@@ -30,7 +29,7 @@ router.post('/', async (req, res) => {
     const userInfo = req.session.info;
     userInfo.password = req.body.password;
     userInfo.email = userInfo.email.toLowerCase();
-    const emailExist = await queryUser.emailExist(db.User, userInfo.email);
+    const emailExist = await queryUser.emailExist(userInfo.email);
 
     if (emailExist) {
       req.session.emailExist = true;
@@ -39,8 +38,11 @@ router.post('/', async (req, res) => {
       return;
     }
 
-    await db.User.create(userInfo);
-    res.redirect('/');
+    await queryUser.addUser(userInfo);
+    req.session.justRegistered = true;
+    req.session.save();
+    res.redirect('/login');
+    return;
 
   } catch (err) {
     console.log('\n***** There was an error: *****\n', err.message, '\n**********\n');

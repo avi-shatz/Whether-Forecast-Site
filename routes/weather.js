@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 
-// /admin/add-product => GET
+// / => GET
 router.get('/' , (req, res) => {
 
   if(req.session.userData) {
@@ -19,11 +19,8 @@ router.get('/' , (req, res) => {
 
 });
 
-// /admin/add-product => POST
-router.post('/add-product', () => {});
-
-
-
+// / => POST
+router.post('/', () => {});
 
 // /debug-sessions => GET
 router.get('/debug-sessions' , (req, res) => {
