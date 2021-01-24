@@ -17,6 +17,7 @@ const registerRoutes = require('./routes/register');
 const loginRoutes = require('./routes/login');
 const queryApiRoutes = require('./routes/queryApi');
 
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 

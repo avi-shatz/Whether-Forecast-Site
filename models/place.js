@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Place.init({
-    name: {type: DataTypes.STRING, allowNull: false, unique: true},
+    name: {type: DataTypes.STRING, allowNull: false},
     lon: {type: DataTypes.FLOAT, allowNull: false},
     lat: {type: DataTypes.FLOAT, allowNull: false},
     userID: {type: DataTypes.INTEGER, allowNull: false}

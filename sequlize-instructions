@@ -1,0 +1,52 @@
+Instruction for creating a sqlite project
+Based on the tutorial: https://stackabuse.com/using-sequelize-js-and-sqlite-in-an-express-js-app/
+
+steps required to create a sqlite / sequelize project:
+
+1/  npm install --save express body-parser sequelize sequelize-cli sqlite3 nodemon
+
+2/  node_modules\.bin\sequelize init
+
+       ->  create the directories config, migrations, models, and seeders
+        config/index.js - this defines the connection parameters and sql dialect
+        migrations - contains migration scripts to manage the versioning of the schema
+        models - contains the data models you use to interact with the database within your application code
+        seeders - contains scripts to populate your database with initial data
+
+3/ edit the file config\config.json and replace it with
+
+{
+  "development": {
+    "dialect": "sqlite",
+    "storage": "./database.sqlite3"
+  },
+  "test": {
+    "dialect": "sqlite",
+    "storage": ":memory"
+  },
+  "production": {
+    "dialect": "sqlite",
+    "storage": "./database.sqlite3"
+  }
+}
+
+
+It will create and use a SQLite database file called database.sqlite3 in the root of the project.
+
+
+4/ node_modules\.bin\sequelize model:generate --name Contact --attributes firstName:string,lastName:string,phone:string,email:string
+
+  -> create a model / table for Contact
+
+5.  node_modules\.bin\sequelize db:migrate
+  ->  run the migration so that the SQLite database will contain the contacts table
+
+
+***********************************************************************************************************
+
+  Install:
+1.  npm install sequelize-mig -g / yarn global add sequelize-mig
+
+  then use it like this
+
+2. sequelize-mig migration:make -n create-tables

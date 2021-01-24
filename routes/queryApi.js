@@ -14,14 +14,16 @@ router.get('/get-places', async (req, res) => {
 
 });
 
-// /api/add-place => GET
-router.get('/add-place', async (req, res) => {
-  const place = req.query;
+// /api/add-place => PUT
+router.put('/add-place', async (req, res) => {
+
+  const place = req.body;
+
   if (req.session.userData) {
 
     try {
-      await queryUser.addPlace(req.session.userData.id, place);
-      return;
+      const addedPlace = await queryUser.addPlace(req.session.userData.id, place);
+      return addedPlace;
     } catch (e) {
       return res.status(400).send(new Error("Error: there was a data-base insert error. " + e));
     }
@@ -31,5 +33,45 @@ router.get('/add-place', async (req, res) => {
   }
 
 });
+
+// /api/remove-place => DELETE
+router.delete('/remove-place', async (req, res) => {
+
+  const place = req.body;
+
+  if (req.session.userData) {
+
+    try {
+      const removedPlace = await queryUser.removePlace(req.session.userData.id, place.name);
+      return removedPlace;
+    } catch (e) {
+      return res.status(400).send(new Error("Error: there was a data-base delete error. " + e));
+    }
+
+  } else {
+    return res.status(400).send(new Error("Error: user not logged in."));
+  }
+
+});
+
+
+// /api/remove-all-places => DELETE
+router.delete('/remove-all-places', async (req, res) => {
+
+  if (req.session.userData) {
+
+    try {
+      const removedPlaces = await queryUser.removeAllPlaces(req.session.userData.id);
+      return removedPlaces;
+    } catch (e) {
+      return res.status(400).send(new Error("Error: there was a data-base delete error. " + e));
+    }
+
+  } else {
+    return res.status(400).send(new Error("Error: user not logged in."));
+  }
+
+});
+
 
 module.exports = router;

@@ -60,3 +60,24 @@ module.exports.addPlace = async (userID, place) => {
   return found;
 }
 
+module.exports.removePlace = async (userID, placeName) => {
+  const table = db.Place;
+  const found = await table.destroy({
+    where: {
+      name: placeName,
+      userID: userID
+    }
+  });
+  return found;
+}
+
+module.exports.removeAllPlaces = async (userID) => {
+  const table = db.Place;
+  const found = await table.destroy({
+    where: {
+      userID: userID
+    }
+  });
+  return found;
+}
+

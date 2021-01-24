@@ -10,10 +10,13 @@
 <div class="container-fluid">
 
     <div class="row">
-        <div class="col-12 bg-light m-5 p-5 ">
-            <p> Hi <%= userData.firstName %> <%= userData.lastName %>! </p>
+        <div class="col-12 bg-light">
+            <div class="m-5 p-5">
+                <p> Hi <%= userData.firstName %> <%= userData.lastName %>!</p>
+                <a class="btn btn-primary btn-sm" href="/login" id="logout">Log out</a>
 
-            <h1 class="text-center">Weather Forecast</h1>
+                <h1 class="text-center">Weather Forecast</h1>
+            </div>
         </div>
     </div>
 
@@ -25,7 +28,7 @@
                     <select class="custom-select" id="select_place">
                         <option selected value="None">-- Select --</option>
                     </select>
-                    <div class="d-none" id="selection_buttons">
+                    <div class="d-none text-center" id="selection_buttons">
                         <button class="btn btn-danger m-3" id="remove_btn">Remove</button>
                         <button class="btn btn-success m-3" id="display_btn">Display Forecast</button>
                     </div>
@@ -57,12 +60,18 @@
                                 <input class="form-control" id="latitude" max="90"
                                        min="-90" required step="0.000000001" type="number">
                             </div>
-                            <div class="col-12 py-2">
-                                <button class="btn btn-primary" type="submit">Add</button>
+                            <div class="col-12 py-2 text-center">
+                                <button class="btn btn-primary px-5" type="submit">Add</button>
                             </div>
                         </div>
 
                     </form>
+                </div>
+            </div>
+
+            <div class="row bg-light px-3 py-3 m-5" id="reset_section">
+                <div class="col text-center">
+                    <button class="btn btn-danger m-3 px-3" id="reset_btn">Reset places</button>
                 </div>
             </div>
 

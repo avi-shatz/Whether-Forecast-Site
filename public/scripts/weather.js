@@ -35,29 +35,19 @@
 
       const jsonUrl = '/api/get-places';
 
-      fetch(jsonUrl)
-        .then(response => {
-          if (response.status === 400) {
-            // Simulate an HTTP redirect:
-            window.location.replace('/login');
-          }
-          if (response.status !== 200) {
-            throw new Error('Status Code: ' + response.status);
-          }
-          return response.json();
-        })
-        .then(json => {
-          for (const p of json) {
-            const place = new Place(p.name, p.lon, p.lat);
-            this.addPlaceToDom(place);
-          }
-        })
-        .catch(e => {
-          const errMsg = 'Looks like there was a problem. ' + e.message;
-          console.log(errMsg);
-        })
-        .finally(() => {
-        });
+      const getMethod = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+
+      fetchApi(jsonUrl, getMethod, json => {
+        for (const p of json) {
+          const place = new Place(p.name, p.lon, p.lat);
+          this.addPlaceToDom(place);
+        }
+      });
     }
 
     addPlaceToDom(place) {
@@ -71,29 +61,50 @@
     }
 
     addPlaceToDb(place) {
-      const jsonUrl = `/api/add-place?name=${place.name}` +
-        `&lon=${place.longitude}&lat=${place.latitude}`;
+      const jsonUrl = '/api/add-place';
 
-      fetch(jsonUrl)
-        .then(response => {
-          if (response.status === 400) {
-            // Simulate an HTTP redirect:
-            window.location.replace('/login');
-          }
+      const putMethod = {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({name: place.name, lon: place.longitude, lat: place.latitude})
+      }
 
-          if (response.status !== 200) {
-            throw new Error('Status Code: ' + response.status);
-          }
-          return response.json();
-        })
-        .then(json => {
-        })
-        .catch(e => {
-          const errMsg = 'Looks like there was a problem. ' + e.message;
-          console.log(errMsg);
-        })
-        .finally(() => {
-        });
+      fetchApi(jsonUrl, putMethod);
+    }
+
+    removePlaceFromDb(placeName) {
+      const jsonUrl = '/api/remove-place';
+
+      const deleteMethod = {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({name: placeName})
+      }
+
+      fetchApi(jsonUrl, deleteMethod);
+    }
+
+    resetPlacesFromDb(){
+      const jsonUrl = '/api/remove-all-places';
+
+      const deleteMethod = {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+
+      fetchApi(jsonUrl, deleteMethod);
+    }
+
+    //
+    resetPlaces(){
+      this.resetPlacesFromDb();
+      location.reload();
     }
 
     // add a new place to the list of places.
@@ -104,8 +115,13 @@
 
     // remove a place from the list of places.
     removeSelectedPlace() {
+      const placeName = this.getSelectedText();
+
+      // remove from db
+      this.removePlaceFromDb(placeName);
+
       // remove from map
-      this.map.delete(this.getSelectedText());
+      this.map.delete(placeName);
 
       // remove from DOM
       this.select.remove(this.select.selectedIndex);
@@ -141,13 +157,29 @@
     const placesManager = new PlacesManager();
     const select = placesManager.select;
 
+    const logoutBtn = document.getElementById("logout");
     const removeBtn = document.getElementById("remove_btn");
     const displayBtn = document.getElementById("display_btn");
+    const resetBtn = document.getElementById("reset_btn");
     const addItemForm = document.querySelector("#insert_section form");
 
     //notify placesManager that select selection has changed.
     select.addEventListener("change", () => {
       placesManager.selectChanged();
+    });
+
+    //clicking the logout button will delete server-side session.
+    logoutBtn.addEventListener("click", () => {
+      const jsonUrl = '/logout';
+
+      const deleteMethod = {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+
+      fetchApi(jsonUrl, deleteMethod);
     });
 
     //clicking the remove button will remove the selected place.
@@ -165,6 +197,11 @@
     addItemForm.addEventListener("submit", function (event) {
       event.preventDefault();
       addItem(placesManager, addItemForm);
+    });
+
+    //clicking the reset button will empty the places list.
+    resetBtn.addEventListener("click", () => {
+      placesManager.resetPlaces();
     });
   });
 
@@ -332,6 +369,28 @@
       placesManager.addPlace(place);
       addItemForm.reset();
     }
+  }
+
+//============================================================
+  // fetch from local api
+  function fetchApi(jsonUrl, putMethod, dealWithResponse = () => {}) {
+    fetch(jsonUrl, putMethod)
+      .then(response => {
+        if (response.status === 400) {
+          // Simulate an HTTP redirect:
+          window.location.replace('/login');
+        }
+
+        if (response.status !== 200) {
+          throw new Error('Status Code: ' + response.status);
+        }
+        return response.json();
+      }).then(dealWithResponse)
+      .catch(e => {
+        const errMsg = 'Looks like there was a problem. ' + e;
+        console.log(errMsg);
+      })
+
   }
 
 })();

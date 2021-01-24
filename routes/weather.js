@@ -19,8 +19,12 @@ router.get('/' , (req, res) => {
 
 });
 
-// / => POST
-router.post('/', () => {});
+
+// /logout => DELETE
+router.delete('/logout' , (req, res) => {
+  req.session.destroy();
+  res.end();
+});
 
 // /debug-sessions => GET
 router.get('/debug-sessions' , (req, res) => {

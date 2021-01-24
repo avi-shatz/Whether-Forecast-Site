@@ -12,7 +12,6 @@
                 },
                 "name": {
                     "allowNull": false,
-                    "unique": true,
                     "field": "name",
                     "seqType": "Sequelize.STRING"
                 },
