@@ -11,7 +11,7 @@ const Sequelize = require("sequelize");
 const info = {
   revision: 1,
   name: "create-tables",
-  created: "2021-01-19T16:45:04.619Z",
+  created: "2021-01-24T12:27:16.721Z",
   comment: "",
 };
 
@@ -29,7 +29,12 @@ const migrationCommands = (transaction) => {
             primaryKey: true,
             allowNull: false,
           },
-          name: { type: Sequelize.STRING, field: "name", allowNull: false },
+          name: {
+            type: Sequelize.STRING,
+            field: "name",
+            unique: true,
+            allowNull: false,
+          },
           lon: { type: Sequelize.FLOAT, field: "lon", allowNull: false },
           lat: { type: Sequelize.FLOAT, field: "lat", allowNull: false },
           userID: {

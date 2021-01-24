@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const queryUser = require('../util/dbQueries');
+const queryUser = require('../controllers/dbQueries');
 const passwordRoutes = require('../routes/password');
 const Cookies = require('cookies');
 

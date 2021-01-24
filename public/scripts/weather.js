@@ -37,6 +37,10 @@
 
       fetch(jsonUrl)
         .then(response => {
+          if (response.status === 400) {
+            // Simulate an HTTP redirect:
+            window.location.replace('/login');
+          }
           if (response.status !== 200) {
             throw new Error('Status Code: ' + response.status);
           }
@@ -72,6 +76,11 @@
 
       fetch(jsonUrl)
         .then(response => {
+          if (response.status === 400) {
+            // Simulate an HTTP redirect:
+            window.location.replace('/login');
+          }
+
           if (response.status !== 200) {
             throw new Error('Status Code: ' + response.status);
           }
@@ -206,7 +215,6 @@
 //============================================================
   //display the weather info in html table
   function displayJson(json) {
-    console.log(json);
 
     let tableHtml =
       `<table class="table table-striped"> <thead> <tr>

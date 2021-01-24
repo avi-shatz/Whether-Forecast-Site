@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const router = express.Router();
-const queryUser = require('../util/dbQueries');
+const queryUser = require('../controllers/dbQueries');
 
 // /login => GET
 router.get('/', (req, res) => {

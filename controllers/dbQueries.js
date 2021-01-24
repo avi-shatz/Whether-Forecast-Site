@@ -57,7 +57,6 @@ module.exports.addPlace = async (userID, place) => {
     lat: place.lat,
     userID: userID
   });
-  console.log("\n\n found: ------- \n",found, "----------------- \n");
   return found;
 }
 
