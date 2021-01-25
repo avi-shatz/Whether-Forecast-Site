@@ -29,6 +29,8 @@ router.post('/', async (req, res) => {
     new Date().toISOString(), { signed: true});
 
   try {
+    // if email exist reload the page with an "email exist" error
+    // else ask for a password
     const emailExist = await queryUser.emailExist(req.body.email);
 
     if (emailExist) {

@@ -1,10 +1,12 @@
 const db = require('../models');
 
+//add user to the Users table
 module.exports.addUser = async (userInfo) => {
   const table = db.User;
   return table.create(userInfo);
 }
 
+// check if email exist. returns true/false
 module.exports.emailExist = async (email) => {
   const table = db.User;
 
@@ -22,6 +24,7 @@ module.exports.emailExist = async (email) => {
   return false;
 }
 
+// check if user with the email and password params exists.
 module.exports.validateAccount = async (email, password) => {
   const table = db.User;
 
@@ -36,6 +39,7 @@ module.exports.validateAccount = async (email, password) => {
   return found;
 }
 
+// returns a list of places that a specific user inserted.
 module.exports.getUserPlaces = async (userID) => {
   const table = db.Place;
   const found = await table.findAll(
@@ -49,6 +53,7 @@ module.exports.getUserPlaces = async (userID) => {
   return found;
 }
 
+// add place to the places table
 module.exports.addPlace = async (userID, place) => {
   const table = db.Place;
   const found = await table.create({
@@ -60,6 +65,7 @@ module.exports.addPlace = async (userID, place) => {
   return found;
 }
 
+// remove a place from the places table
 module.exports.removePlace = async (userID, placeName) => {
   const table = db.Place;
   const found = await table.destroy({
@@ -71,6 +77,7 @@ module.exports.removePlace = async (userID, placeName) => {
   return found;
 }
 
+// remove all places belonging to a specific user from the places table
 module.exports.removeAllPlaces = async (userID) => {
   const table = db.Place;
   const found = await table.destroy({

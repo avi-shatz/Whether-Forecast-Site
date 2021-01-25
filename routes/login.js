@@ -1,4 +1,3 @@
-const path = require('path');
 const express = require('express');
 const router = express.Router();
 const queryUser = require('../controllers/dbQueries');
@@ -19,6 +18,9 @@ router.get('/', (req, res) => {
 
 // /login => POST
 router.post('/', async (req, res) => {
+  // if user with the email and password submitted, exists:
+  // render the weather page with the user info
+
   const validAccount = await queryUser.validateAccount(req.body.email, req.body.password);
 
   if (validAccount) {

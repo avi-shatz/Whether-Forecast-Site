@@ -1,6 +1,7 @@
 <%- include('includes/head.ejs') %>
 
 <link href="/css/weather.css" rel="stylesheet">
+<link href="/css/loading-anim.css" rel="stylesheet">
 <script src="/scripts/weather.js"></script>
 
 </head>
@@ -78,8 +79,17 @@
         </div>
 
         <div class="col-12 col-md-6" id="forecast_section">
-            <div class="text-center p-5 d-none" id="loading_img">
-                <h1>Loading...</h1>
+            <div class="text-center d-none" id="loading_img">
+                <div class="loading p-5 my-4">
+                    <div class="loader">
+                        <div class="loader__bar"></div>
+                        <div class="loader__bar"></div>
+                        <div class="loader__bar"></div>
+                        <div class="loader__bar"></div>
+                        <div class="loader__bar"></div>
+                        <div class="loader__ball"></div>
+                    </div>
+                </div>
             </div>
 
 
@@ -87,8 +97,17 @@
 
             </div>
 
-            <div class="text-center p-5 d-none" id="loading_json">
-                <h1>Loading...</h1>
+            <div class="text-center d-none" id="loading_json">
+                <div class="loading p-5">
+                    <div class="loader">
+                        <div class="loader__bar"></div>
+                        <div class="loader__bar"></div>
+                        <div class="loader__bar"></div>
+                        <div class="loader__bar"></div>
+                        <div class="loader__bar"></div>
+                        <div class="loader__ball"></div>
+                    </div>
+                </div>
             </div>
 
             <div class="p-3" id="json_div">

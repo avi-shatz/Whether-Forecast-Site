@@ -15,6 +15,7 @@ app.set('views', 'views');
 const weatherRoutes = require('./routes/weather');
 const registerRoutes = require('./routes/register');
 const loginRoutes = require('./routes/login');
+const logoutRoutes = require('./routes/logout');
 const queryApiRoutes = require('./routes/queryApi');
 
 app.use(express.json());
@@ -35,6 +36,7 @@ app.use(session({
 app.use('/', weatherRoutes);
 app.use('/register', registerRoutes);
 app.use('/login', loginRoutes);
+app.use('/logout', logoutRoutes);
 app.use('/api', queryApiRoutes);
 
 app.use(errorController.get404);

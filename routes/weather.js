@@ -1,4 +1,3 @@
-const path = require('path');
 const express = require('express');
 const router = express.Router();
 
@@ -19,15 +18,9 @@ router.get('/' , (req, res) => {
 
 });
 
-
-// /logout => DELETE
-router.delete('/logout' , (req, res) => {
-  req.session.destroy();
-  res.end();
-});
-
+// great way to debug and see the current users cookies and sessions.
 // /debug-sessions => GET
-router.get('/debug-sessions' , (req, res) => {
+/*router.get('/debug-sessions' , (req, res) => {
   const debug = {
     session: req.session,
     cookie: req.cookies
@@ -35,6 +28,7 @@ router.get('/debug-sessions' , (req, res) => {
   res.send(JSON.stringify(debug));
 
   res.end();
-});
+});*/
+
 
 module.exports = router;

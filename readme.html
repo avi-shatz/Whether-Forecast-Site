@@ -5,7 +5,7 @@
   <title>ReadMe</title>
 </head>
 <body>
-<h3>info: </h3>
+<h3>project info: </h3>
 <p>
   name: Avigdor Shatz <br>
   id: 313134777 <br>
@@ -16,11 +16,40 @@
   id: 314840182 <br>
 </p>
 <p>
-ex: 3
+ex: 4
 </p>
 <h3>description: </h3>
 <p>
-
+  <b>run server: </b>
+  node bin\www
 </p>
+<p>
+  This project runs a server that can give a login and registration pages. <br>
+  if the user is logged in the server sends a weather page. <br>
+  the server also manages the data base and serves a rest api for the user to operate on the data base.
+</p>
+
+<h3>Notes: </h3>
+<p>
+  <b>data base operations</b> <br>
+  We made a protected rest api that gives the user the option to operate his data base.
+  <br>
+  the api will send 400 error if the user isn't logged in.
+</p>
+<p>
+  <b>data base structure</b> <br>
+  There is two tables in our data base, first a <b>users</b> table which contains all users info. <br>
+  the second table is a <b>places</b> table which contains all places that users saved, with the id of the user that saved the place.
+</p>
+<p>
+  <b>migrations file</b> <br>
+  We used the sequelize-mig library in order to create the migration file based on the model files.
+</p>
+<p>
+  <b>loading animation</b> <br>
+  We made a beautiful css loading animation based on this code snippet from <a href="https://codepen.io/ispal/pen/mVaaJe">codepen</a>
+</p>
+
+<h1>Have a great day! :)</h1>
 </body>
 </html>

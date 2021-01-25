@@ -31,6 +31,7 @@
       return this._map;
     }
 
+    // fill the map with the places fetched from the rest api
     fillMapWithPlacesFromDb() {
 
       const jsonUrl = '/api/get-places';
@@ -50,6 +51,7 @@
       });
     }
 
+    // add one place to the UI an to map
     addPlaceToDom(place) {
       // add to map
       this.map.set(place.name, place);
@@ -60,6 +62,7 @@
       this.select.appendChild(option);
     }
 
+    // add one place to data base.
     addPlaceToDb(place) {
       const jsonUrl = '/api/add-place';
 
@@ -74,6 +77,7 @@
       fetchApi(jsonUrl, putMethod);
     }
 
+    // delete one place from the data base
     removePlaceFromDb(placeName) {
       const jsonUrl = '/api/remove-place';
 
@@ -88,6 +92,7 @@
       fetchApi(jsonUrl, deleteMethod);
     }
 
+    // delete all the places of the current user, from the data base.
     resetPlacesFromDb(){
       const jsonUrl = '/api/remove-all-places';
 
@@ -101,7 +106,7 @@
       fetchApi(jsonUrl, deleteMethod);
     }
 
-    //
+    // delete all places from the db and reload the page to update the list.
     resetPlaces(){
       this.resetPlacesFromDb();
       location.reload();
@@ -372,9 +377,13 @@
   }
 
 //============================================================
-  // fetch from local api
-  function fetchApi(jsonUrl, putMethod, dealWithResponse = () => {}) {
-    fetch(jsonUrl, putMethod)
+  // fetch from a rest api
+  // params:
+  //    jsonUrl: the api's url
+  //    method: the request method (GET, POST...)
+  //    dealWithResponse: optional function to execute after the api request.
+  function fetchApi(jsonUrl, method, dealWithResponse = () => {}) {
+    fetch(jsonUrl, method)
       .then(response => {
         if (response.status === 400) {
           // Simulate an HTTP redirect:
